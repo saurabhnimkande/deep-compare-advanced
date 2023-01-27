@@ -1,4 +1,5 @@
 import { isObject } from "../../utils/index.js";
+import { arrayCompare } from "../array/array.js";
 
 export const objectCompare = (one, two, parentOne, parentTwo) => {
   if (!isObject(one) || !isObject(two)) {
@@ -31,14 +32,20 @@ export const objectCompare = (one, two, parentOne, parentTwo) => {
       let value1 = one[keys];
       let value2 = two[keys];
       const checkObjects = isObject(value1) && isObject(value2);
+      const checkArrays = Array.isArray(value1) && Array.isArray(value2);
       let mergeParent1 = `${parentOne}.${keys}`;
       let mergeParent2 = `${parentTwo}.${keys}`;
       let resultObject =
         checkObjects &&
+        !checkArrays &&
         objectCompare(value1, value2, mergeParent1, mergeParent2);
-      if (checkObjects && !resultObject?.status) {
+      let resultArrays =
+        checkArrays && arrayCompare(value1, value2, mergeParent1, mergeParent2);
+      if (checkArrays && !resultArrays?.status) {
+        return { status: false, result: { ...resultArrays?.result } };
+      } else if (checkObjects && !checkArrays && !resultObject?.status) {
         return { status: false, result: { ...resultObject?.result } };
-      } else if (!checkObjects && value1 !== value2) {
+      } else if (!checkObjects && !checkArrays && value1 !== value2) {
         return {
           status: false,
           result: {
