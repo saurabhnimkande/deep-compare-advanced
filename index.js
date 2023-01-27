@@ -2,9 +2,9 @@ import { objectCompare } from "./src/object/object.js";
 import { isArray, isObject } from "./utils/index.js";
 
 export const deepCompare = (one, two) => {
-  if(isObject(one) && isObject(two)) {
+  if (isObject(one) && isObject(two)) {
     return objectCompare(one, two, "Object1", "Object2");
-  } else if(isArray(one) && isArray(two)) {
+  } else if (isArray(one) && isArray(two)) {
     return "Comparing Arrays";
   } else {
     return {
@@ -16,7 +16,6 @@ export const deepCompare = (one, two) => {
         valueTwo: two,
         reason: `Please provide same datatypes to compare`,
       },
-    }
+    };
   }
-
 };
