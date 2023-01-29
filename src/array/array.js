@@ -67,7 +67,7 @@ export const arrayCompare = (one, two, parentOne, parentTwo) => {
             valueOne: one,
             pathTwo: parentTwo,
             valueTwo: two,
-            reason: `Values mismatch path1 ${parentOne} path2 ${parentTwo}"`,
+            reason: `Values mismatch path1 ${parentOne} path2 ${parentTwo}.`,
           },
         };
       }
@@ -83,7 +83,7 @@ export const arrayCompare = (one, two, parentOne, parentTwo) => {
           valueOne: one,
           pathTwo: parentTwo,
           valueTwo: two,
-          reason: `Values mismatch path1 ${parentOne} path2 ${parentTwo}"`,
+          reason: `Values mismatch path1 ${parentOne} path2 ${parentTwo}.`,
         },
       };
     } else {

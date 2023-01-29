@@ -53,7 +53,7 @@ export const objectCompare = (one, two, parentOne, parentTwo) => {
             valueOne: value1,
             pathTwo: mergeParent2,
             valueTwo: value2,
-            reason: `Values mismatch path1 ${mergeParent1} value "${one[keys]}", path2 ${mergeParent2} value "${two[keys]}"`,
+            reason: `Values mismatch path1 ${mergeParent1} value "${one[keys]}", path2 ${mergeParent2} value "${two[keys]}".`,
           },
         };
       }
