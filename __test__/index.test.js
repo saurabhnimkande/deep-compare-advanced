@@ -393,7 +393,7 @@ describe("Test cases for Arrays", () => {
       [["eleven"], ["twelve"]],
       [
         ["two", "one", "three"],
-        ["four","randomValue", "five", "six"],
+        ["four", "randomValue", "five", "six"],
       ],
       [
         ["nine", "ten"],
@@ -408,8 +408,76 @@ describe("Test cases for Arrays", () => {
         pathOne: `Array1[1][0]`,
         valueOne: ["five", "four", "six"],
         pathTwo: `Array2[1][1]`,
-        valueTwo: ["four","randomValue", "five", "six"],
+        valueTwo: ["four", "randomValue", "five", "six"],
         reason: `Array length does not match.`,
+      },
+    });
+  });
+});
+
+describe("Test cases for nested arrays/object", () => {
+  test("Checking for empty array of objects", () => {
+    let value1 = [{}, {}, {}];
+    let value2 = [{}, {}, {}];
+    let result = deepCompare(value1, value2);
+
+    expect(result).toStrictEqual({
+      status: true,
+      result: {},
+    });
+  });
+
+  test("Checking for array of objects", () => {
+    let value1 = [{ obj1: "obj1" }, { obj2: "obj2" }, { obj3: "obj3" }];
+    let value2 = [{ obj1: "obj1" }, { obj2: "obj2" }, { obj3: "obj3" }];
+    let result = deepCompare(value1, value2);
+
+    expect(result).toStrictEqual({
+      status: true,
+      result: {},
+    });
+  });
+
+  test("Checking for array of objects with additional key", () => {
+    let value1 = [{ obj1: "obj1" }, { obj2: "obj2" }, { obj3: "obj3" }];
+    let value2 = [
+      { obj1: "obj1" },
+      { obj2: "obj2", obj2Add: "obj2Add" },
+      { obj3: "obj3" },
+    ];
+    let result = deepCompare(value1, value2);
+
+    expect(result).toStrictEqual({
+      status: false,
+      result: {
+        pathOne: `Array1[1].obj2`,
+        valueOne: "obj2",
+        pathTwo: `Array2[1].obj2`,
+        valueTwo: undefined,
+        reason: `Values mismatch path1 Array1[1].obj2 value "obj2", path2 Array2[1].obj2 value "undefined".`,
+      },
+    });
+  });
+
+  test("Checking for array of objects with additional key random order", () => {
+    let value1 = [{ obj2: "obj2" }, { obj1: "obj1" }, { obj3: "obj3" }];
+    let value2 = [
+      { obj3: "obj3" },
+      { obj1: "obj1" },
+      { obj2: "obj2", obj2Add: "obj2Add" },
+    ];
+    let result = deepCompare(value1, value2);
+
+    expect(result).toStrictEqual({
+      status: false,
+      result: {
+        pathOne: `Array1[0]`,
+        valueOne: {
+          obj2: "obj2",
+        },
+        pathTwo: `Array2[2]`,
+        valueTwo: { obj2: "obj2", obj2Add: "obj2Add" },
+        reason: `Object length does not match.`,
       },
     });
   });
