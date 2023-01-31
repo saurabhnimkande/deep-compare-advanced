@@ -481,4 +481,471 @@ describe("Test cases for nested arrays/object", () => {
       },
     });
   });
+
+  test("Checking for array of nested objects", () => {
+    let value1 = [
+      {
+        obj2: {
+          data1: {
+            data2: {
+              data3: {
+                data4: "hello",
+              },
+            },
+          },
+        },
+      },
+      {
+        obj1: {
+          data1: {
+            data2: {
+              data3: {
+                data4: "hello",
+              },
+            },
+          },
+        },
+      },
+      {
+        obj3: {
+          data1: {
+            data2: {
+              data3: {
+                data4: "hello",
+              },
+            },
+          },
+        },
+      },
+    ];
+    let value2 = [
+      {
+        obj2: {
+          data1: {
+            data2: {
+              data3: {
+                data4: "hello",
+              },
+            },
+          },
+        },
+      },
+      {
+        obj1: {
+          data1: {
+            data2: {
+              data3: {
+                data4: "hello",
+              },
+            },
+          },
+        },
+      },
+      {
+        obj3: {
+          data1: {
+            data2: {
+              data3: {
+                data4: "hello",
+                additionalKey: true,
+              },
+            },
+          },
+        },
+      },
+    ];
+    let result = deepCompare(value1, value2);
+
+    expect(result).toStrictEqual({
+      status: false,
+      result: {
+        pathOne: `Array1[2].obj3.data1.data2.data3`,
+        valueOne: {
+          data4: "hello",
+        },
+        pathTwo: `Array2[0].obj3.data1.data2.data3`,
+        valueTwo: {
+          data4: "hello",
+          additionalKey: true,
+        },
+        reason: `Object length does not match.`,
+      },
+    });
+  });
+
+  test("Checking for array of nested objects random order", () => {
+    let value1 = [
+      {
+        obj1: {
+          data1: {
+            data2: {
+              data3: {
+                data4: "hello",
+              },
+            },
+          },
+        },
+      },
+      {
+        obj3: {
+          data1: {
+            data2: {
+              data3: {
+                data4: "hello",
+              },
+            },
+          },
+        },
+      },
+      {
+        obj2: {
+          data1: {
+            data2: {
+              data3: {
+                data4: "hello",
+              },
+            },
+          },
+        },
+      },
+    ];
+    let value2 = [
+      {
+        obj2: {
+          data1: {
+            data2: {
+              data3: {
+                data4: "hello",
+              },
+            },
+          },
+        },
+      },
+      {
+        obj1: {
+          data1: {
+            data2: {
+              data3: {
+                data4: "hello",
+              },
+            },
+          },
+        },
+      },
+      {
+        obj3: {
+          data1: {
+            data2: {
+              data3: {
+                data4: "hello",
+                additionalKey: true,
+              },
+            },
+          },
+        },
+      },
+    ];
+    let result = deepCompare(value1, value2);
+
+    expect(result).toStrictEqual({
+      status: false,
+      result: {
+        pathOne: `Array1[1].obj3.data1.data2.data3`,
+        valueOne: {
+          data4: "hello",
+        },
+        pathTwo: `Array2[1].obj3.data1.data2.data3`,
+        valueTwo: {
+          data4: "hello",
+          additionalKey: true,
+        },
+        reason: `Object length does not match.`,
+      },
+    });
+  });
+
+  test("Checking for object containing value as array", () => {
+    let value1 = {
+      data1: ["one", "two", "three"],
+      data2: ["four", "five", "six"],
+      data3: ["seven", "eight", "nine"],
+    };
+    let value2 = {
+      data1: ["one", "two", "three"],
+      data2: ["four", "five", "six"],
+      data3: ["seven", "eight", "nine"],
+    };
+    let result = deepCompare(value1, value2);
+
+    expect(result).toStrictEqual({
+      status: true,
+      result: {},
+    });
+  });
+
+  test("Checking for object containing value as array random order", () => {
+    let value1 = {
+      data3: ["eight", "nine", "seven"],
+      data1: ["two", "one", "three"],
+      data2: ["six", "four", "five"],
+    };
+    let value2 = {
+      data2: ["four", "five", "six"],
+      data1: ["one", "two", "three"],
+      data3: ["seven", "nine", "eight"],
+    };
+    let result = deepCompare(value1, value2);
+
+    expect(result).toStrictEqual({
+      status: true,
+      result: {},
+    });
+  });
+
+  test("Checking for object containing value as array random order with additional key", () => {
+    let value1 = {
+      data3: ["eight", "nine", "seven"],
+      data1: ["two", "one", "three", 10],
+      data2: ["six", "four", "five"],
+    };
+    let value2 = {
+      data2: ["four", "five", "six"],
+      data1: ["one", "two", "three"],
+      data3: ["seven", "nine", "eight"],
+    };
+    let result = deepCompare(value1, value2);
+
+    expect(result).toStrictEqual({
+      status: false,
+      result: {
+        pathOne: `Object1.data1`,
+        valueOne: ["two", "one", "three", 10],
+        pathTwo: `Object2.data1`,
+        valueTwo: ["one", "two", "three"],
+        reason: `Array length does not match.`,
+      },
+    });
+  });
+
+  test("Checking for deep object containing value as array random order", () => {
+    let value1 = {
+      quiz: {
+        sport: {
+          q1: {
+            answer: "Huston Rocket",
+            question: "Which one is correct team name in NBA?",
+            options: [
+              "Golden State Warriros",
+              "New York Bulls",
+              "Huston Rocket",
+              "Los Angeles Kings",
+            ],
+          },
+        },
+        maths: {
+          q2: {
+            question: "12 - 8 = ?",
+            options: ["3", "4", "1", "2"],
+            answer: "4",
+          },
+          q1: {
+            question: "5 + 7 = ?",
+            answer: "12",
+            options: [{ one: ["one", "two", "three"] }, "11", "12", "13"],
+          },
+        },
+      },
+    };
+    let value2 = {
+      quiz: {
+        sport: {
+          q1: {
+            question: "Which one is correct team name in NBA?",
+            options: [
+              "New York Bulls",
+              "Los Angeles Kings",
+              "Golden State Warriros",
+              "Huston Rocket",
+            ],
+            answer: "Huston Rocket",
+          },
+        },
+        maths: {
+          q1: {
+            question: "5 + 7 = ?",
+            options: [{ one: ["one", "two", "three"] }, "11", "12", "13"],
+            answer: "12",
+          },
+          q2: {
+            question: "12 - 8 = ?",
+            options: ["1", "2", "3", "4"],
+            answer: "4",
+          },
+        },
+      },
+    };
+    let result = deepCompare(value1, value2);
+
+    expect(result).toStrictEqual({
+      status: true,
+      result: {},
+    });
+  });
+
+  test("Checking for deep object containing value as array random order additional object", () => {
+    let value1 = {
+      quiz: {
+        sport: {
+          q1: {
+            answer: "Huston Rocket",
+            question: "Which one is correct team name in NBA?",
+            options: [
+              "Golden State Warriros",
+              "New York Bulls",
+              "Huston Rocket",
+              "Los Angeles Kings",
+            ],
+          },
+        },
+        maths: {
+          q2: {
+            question: "12 - 8 = ?",
+            options: ["3", "4", "1", "2"],
+            answer: "4",
+          },
+          q1: {
+            question: "5 + 7 = ?",
+            answer: "12",
+            options: [{ one: ["one", "two", "three"] }, "11", "12", "13"],
+          },
+        },
+      },
+    };
+    let value2 = {
+      quiz: {
+        sport: {
+          q1: {
+            question: "Which one is correct team name in NBA?",
+            options: [
+              "New York Bulls",
+              "Los Angeles Kings",
+              "Golden State Warriros",
+              "Huston Rocket",
+            ],
+            answer: "Huston Rocket",
+          },
+        },
+        maths: {
+          q1: {
+            question: "5 + 7 = ?",
+            options: [
+              { one: ["one", "two", "three"] },
+              { anotherObj: "hello" },
+              "12",
+              "13",
+            ],
+            answer: "12",
+          },
+          q2: {
+            question: "12 - 8 = ?",
+            options: ["1", "2", "3", "4"],
+            answer: "4",
+          },
+        },
+      },
+    };
+    let result = deepCompare(value1, value2);
+
+    expect(result).toStrictEqual({
+      status: false,
+      result: {
+        pathOne: `Object1.quiz.maths.q1.options`,
+        valueOne: [{ one: ["one", "two", "three"] }, "11", "12", "13"],
+        pathTwo: `Object2.quiz.maths.q1.options`,
+        valueTwo: [
+          { one: ["one", "two", "three"] },
+          { anotherObj: "hello" },
+          "12",
+          "13",
+        ],
+        reason: `Values mismatch path1 Object1.quiz.maths.q1.options path2 Object2.quiz.maths.q1.options.`,
+      },
+    });
+  });
+
+  test("Checking for deep object containing value as array random order additional array item", () => {
+    let value1 = {
+      quiz: {
+        sport: {
+          q1: {
+            answer: "Huston Rocket",
+            question: "Which one is correct team name in NBA?",
+            options: [
+              "Golden State Warriros",
+              "New York Bulls",
+              "Huston Rocket",
+              "Los Angeles Kings",
+            ],
+          },
+        },
+        maths: {
+          q2: {
+            question: "12 - 8 = ?",
+            options: ["3", "4", "1", "2"],
+            answer: "4",
+          },
+          q1: {
+            question: "5 + 7 = ?",
+            answer: "12",
+            options: [{ one: ["one", "two", "three"] }, "11", "12", "13"],
+          },
+        },
+      },
+    };
+    let value2 = {
+      quiz: {
+        sport: {
+          q1: {
+            question: "Which one is correct team name in NBA?",
+            options: [
+              "New York Bulls",
+              "Los Angeles Kings",
+              "Golden State Warriros",
+              "Huston Rocket",
+            ],
+            answer: "Huston Rocket",
+          },
+        },
+        maths: {
+          q1: {
+            question: "5 + 7 = ?",
+            options: [
+              { one: ["one", "two", "three", { test: "dsfsd" }] },
+              "11",
+              "12",
+              "13",
+            ],
+            answer: "12",
+          },
+          q2: {
+            question: "12 - 8 = ?",
+            options: ["1", "2", "3", "4"],
+            answer: "4",
+          },
+        },
+      },
+    };
+    let result = deepCompare(value1, value2);
+
+    expect(result).toStrictEqual({
+      status: false,
+      result: {
+        pathOne: `Object1.quiz.maths.q1.options[0].one`,
+        valueOne: ["one", "two", "three"],
+        pathTwo: `Object2.quiz.maths.q1.options[0].one`,
+        valueTwo: ["one", "two", "three", { test: "dsfsd" }],
+        reason: `Array length does not match.`,
+      },
+    });
+  });
 });
