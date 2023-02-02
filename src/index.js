@@ -1,5 +1,5 @@
-import { arrayCompare } from "./src/array/array.js";
-import { objectCompare } from "./src/object/object.js";
+import { arrayCompare } from "./array/array.js";
+import { objectCompare } from "./object/object.js";
 import { isObject } from "./utils/index.js";
 
 export const deepCompare = (one, two) => {

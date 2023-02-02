@@ -1,4 +1,4 @@
-import { deepCompare } from "../index.js";
+import { deepCompare } from "../src/index.js";
 
 describe("Test cases for Objects", () => {
   test("Checking for wrong DataTypes passed as args", () => {

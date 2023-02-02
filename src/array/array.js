@@ -1,4 +1,4 @@
-import { isObject, removeElementFromIndex } from "../../utils/index.js";
+import { isObject, removeElementFromIndex } from "../utils/index.js";
 import { objectCompare } from "../object/object.js";
 
 export const arrayCompare = (one, two, parentOne, parentTwo) => {
