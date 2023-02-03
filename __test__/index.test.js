@@ -949,3 +949,106 @@ describe("Test cases for nested arrays/object", () => {
     });
   });
 });
+
+describe("Test cases for Arrays strict order", () => {
+  test("Checking strict order of arrays", () => {
+    let value1 = ["one", "two", "three", "four"];
+    let value2 = ["one", "two", "three", "four"];
+    let result = deepCompare(value1, value2, true, "value1", "value2");
+
+    expect(result).toStrictEqual({
+      status: true,
+      result: {},
+    });
+  });
+
+  test("Checking strict order of arrays wrong order", () => {
+    let value1 = ["one", "two", "three", "four"];
+    let value2 = ["one", "two", "four", "three"];
+    let result = deepCompare(value1, value2, true, "value1", "value2");
+
+    expect(result).toStrictEqual({
+      status: false,
+      result: {
+        pathOne: `value1[2]`,
+        valueOne: "three",
+        pathTwo: `value2[2]`,
+        valueTwo: "four",
+        reason: `Values mismatch path1 value1[2] path2 value2[2].`,
+      },
+    });
+  });
+
+  test("Checking strict order of arrays wrong order in an object", () => {
+    let value1 = {
+      test: ["order1", "order2", "order3"],
+      anotherObject: { nestedArray: ["one", "two", "three"] },
+    };
+    let value2 = {
+      test: ["order1", "order2", "order3"],
+      anotherObject: { nestedArray: ["one", "changed", "three"] },
+    };
+    let result = deepCompare(value1, value2, true, "obj1", "obj2");
+
+    expect(result).toStrictEqual({
+      status: false,
+      result: {
+        pathOne: "obj1.anotherObject.nestedArray[1]",
+        valueOne: "two",
+        pathTwo: "obj2.anotherObject.nestedArray[1]",
+        valueTwo: "changed",
+        reason:
+          "Values mismatch path1 obj1.anotherObject.nestedArray[1] path2 obj2.anotherObject.nestedArray[1].",
+      },
+    });
+  });
+
+  test("Checking strict order of arrays, array of objects correct order", () => {
+    let value1 = {
+      test: ["order1", "order2", "order3"],
+      anotherObject: {
+        nestedArray: [{ test: "test" }, "two", { test: [true, false] }],
+      },
+    };
+    let value2 = {
+      test: ["order1", "order2", "order3"],
+      anotherObject: {
+        nestedArray: [{ test: "test" }, "two", { test: [true, false] }],
+      },
+    };
+    let result = deepCompare(value1, value2, true);
+
+    expect(result).toStrictEqual({
+      status: true,
+      result: {},
+    });
+  });
+
+  test("Checking strict order of arrays, array of objects wrong order", () => {
+    let value1 = {
+      test: ["order1", "order2", "order3"],
+      anotherObject: {
+        nestedArray: [{ test: "test" }, "two", { test: [true, false] }],
+      },
+    };
+    let value2 = {
+      test: ["order1", "order2", "order3"],
+      anotherObject: {
+        nestedArray: [{ test: "test" }, "two", { test: [true, true] }],
+      },
+    };
+    let result = deepCompare(value1, value2, true);
+
+    expect(result).toStrictEqual({
+      status: false,
+      result: {
+        pathOne: "Object1.anotherObject.nestedArray[2].test[1]",
+        valueOne: false,
+        pathTwo: "Object2.anotherObject.nestedArray[2].test[1]",
+        valueTwo: true,
+        reason:
+          "Values mismatch path1 Object1.anotherObject.nestedArray[2].test[1] path2 Object2.anotherObject.nestedArray[2].test[1].",
+      },
+    });
+  });
+});
