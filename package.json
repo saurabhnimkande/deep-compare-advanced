@@ -1,31 +1,31 @@
 {
-  "name": "deep-compare-js",
+  "name": "deep-compare-advanced",
   "version": "1.0.0",
   "description": "",
   "main": "lib/index.js",
   "scripts": {
     "test": "jest",
-    "start": "nodemon --exec babel-node src/index.js"
+    "start": "nodemon --exec babel-node src/index.js",
+    "build": "babel src -d lib"
   },
   "keywords": [
     "Object Compare",
     "Array Compare",
     "Deep Compare"
   ],
-  "author": "Saurabh Nimkande",
+  "author": "Saurabh Nimkande <saurabhnimkande@gmail.com>",
   "license": "MIT",
   "devDependencies": {
     "@babel/cli": "^7.20.7",
     "@babel/core": "^7.20.12",
-    "@babel/preset-env": "^7.20.2",
-    "babel-jest": "^29.4.0",
-    "jest": "^29.4.0"
-  },
-  "dependencies": {
     "@babel/node": "^7.20.7",
     "@babel/plugin-transform-runtime": "^7.19.6",
     "@babel/polyfill": "^7.12.1",
+    "@babel/preset-env": "^7.20.2",
     "@babel/runtime": "^7.20.13",
-    "core-js": "^3.27.2"
+    "babel-jest": "^29.4.0",
+    "core-js": "^3.27.2",
+    "jest": "^29.4.0",
+    "nodemon": "^2.0.20"
   }
 }
