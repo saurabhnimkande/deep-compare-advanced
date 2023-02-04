@@ -48,7 +48,7 @@ import { deepCompare } from "deep-compare-advanced";
 
 ## Example
 
-#### `deepCompare(datatype1, datatype2, strictCheck(optional), datatypeName1(optional), datatypeName2(optional));`
+### `deepCompare(datatype1, datatype2, strictCheck(optional), datatypeName1(optional), datatypeName2(optional));`
 
 #### Params
 
@@ -175,7 +175,8 @@ console.log(
 //     valueOne: 'data2',
 //     pathTwo: 'MyArray2[0].obj3.nestedObject.data2',
 //     valueTwo: 'value',
-//     reason: 'Values mismatch path1 MyArray1[2].obj3.nestedObject.data2 value "data2", path2 MyArray2[0].obj3.nestedObject.data2 value "value".'
+//     reason: 'Values mismatch path1 MyArray1[2].obj3.nestedObject.data2 value "data2",
+//      path2 MyArray2[0].obj3.nestedObject.data2 value "value".'
 //   }
 // }
 ```
@@ -221,7 +222,8 @@ console.log(
 //     valueOne: 'two',
 //     pathTwo: 'Object2.check.display.array[1]',
 //     valueTwo: { testObj: 'value' },
-//     reason: 'Values mismatch path1 Object1.check.display.array[1] path2 Object2.check.display.array[1].'
+//     reason: 'Values mismatch path1 Object1.check.display.array[1] 
+//       path2 Object2.check.display.array[1].'
 //   }
 // }
 ```
