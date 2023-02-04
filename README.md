@@ -48,7 +48,7 @@ import { deepCompare } from "deep-compare-advanced";
 
 ## Example
 
-### `deepCompare(datatype1, datatype2, strictCheck(optional), datatypeName1(optional), datatypeName2(optional));`
+##### `deepCompare(datatype1, datatype2, strictCheck(optional), datatypeName1(optional), datatypeName2(optional));`
 
 #### Params
 
