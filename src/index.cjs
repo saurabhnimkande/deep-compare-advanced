@@ -1,10 +1,10 @@
-import { arrayCompare } from "./array/array.js";
-import { strictArrayCompare } from "./array/strictArrayCheck.js";
-import { objectCompare } from "./object/object.js";
-import { strictObjectCompare } from "./object/strictObjectCheck.js";
-import { isObject } from "./utils/index.js";
+const { arrayCompare } = require("./array/array.cjs");
+const { strictArrayCompare } = require("./array/strictArrayCheck.cjs");
+const { objectCompare } = require("./object/object.cjs");
+const { strictObjectCompare } = require("./object/strictObjectCheck.cjs");
+const { isObject } = require("./utils/index.cjs");
 
-export const deepCompare = (
+exports.deepCompare = (
   one,
   two,
   strictCheck = false,

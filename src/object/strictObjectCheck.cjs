@@ -1,7 +1,7 @@
-import { isObject } from "../utils/index.js";
-import { strictArrayCompare } from "../array/strictArrayCheck.js";
+const { isObject } = require("../utils/index.cjs");
+const { strictArrayCompare } = require("../array/strictArrayCheck.cjs");
 
-export const strictObjectCompare = (one, two, parentOne, parentTwo) => {
+exports.strictObjectCompare = (one, two, parentOne, parentTwo) => {
   if (!isObject(one) || !isObject(two)) {
     return {
       status: false,
@@ -40,7 +40,8 @@ export const strictObjectCompare = (one, two, parentOne, parentTwo) => {
         !checkArrays &&
         strictObjectCompare(value1, value2, mergeParent1, mergeParent2);
       let resultArrays =
-        checkArrays && strictArrayCompare(value1, value2, mergeParent1, mergeParent2);
+        checkArrays &&
+        strictArrayCompare(value1, value2, mergeParent1, mergeParent2);
       if (checkArrays && !resultArrays?.status) {
         return { status: false, result: { ...resultArrays?.result } };
       } else if (checkObjects && !checkArrays && !resultObject?.status) {

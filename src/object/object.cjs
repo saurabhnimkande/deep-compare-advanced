@@ -1,7 +1,7 @@
-import { isObject } from "../utils/index.js";
-import { arrayCompare } from "../array/array.js";
+const { isObject } = require("../utils/index.cjs");
+const { arrayCompare } = require("../array/array.cjs");
 
-export const objectCompare = (one, two, parentOne, parentTwo) => {
+exports.objectCompare = (one, two, parentOne, parentTwo) => {
   if (!isObject(one) || !isObject(two)) {
     return {
       status: false,
