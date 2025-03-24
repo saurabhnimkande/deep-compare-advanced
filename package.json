@@ -17,7 +17,7 @@
   "author": "Saurabh Nimkande <saurabhnimkande@gmail.com> (https://github.com/saurabhnimkande/)",
   "repository": {
     "type": "git",
-    "url": "https://github.com/saurabhnimkande/deep-compare-advanced.git"
+    "url": "git+https://github.com/saurabhnimkande/deep-compare-advanced.git"
   },
   "bugs": {
     "url": "https://github.com/saurabhnimkande/deep-compare-advanced/issues"
