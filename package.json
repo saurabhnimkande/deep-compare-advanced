@@ -1,6 +1,6 @@
 {
   "name": "deep-compare-advanced",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Compare Objects, Arrays, Nested Objects/Arrays, Array of Objects.",
   "main": "src/index.cjs",
   "module": "src/index.mjs",
